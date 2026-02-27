@@ -47,6 +47,7 @@ This changelog is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.
 - Implement TCK JSON-RPC server with request handling and error management
 
 ### .github
+- Reduced `.github/workflows/pr-check-test.yml` runtime by sharding integration tests across two parallel jobs and running unit tests in a Python matrix. (#1878)
 - Added triage members max assignment is protected from being a mentor in `.github/scripts/bot-assignment-check.sh`. (#1718)
 - Added automated bot to comment on PRs with invalid conventional commit titles, providing guidance on fixing the title format (#1705)
 - Revert PythonBot workflow to restore previous stable behavior. (#1825)
