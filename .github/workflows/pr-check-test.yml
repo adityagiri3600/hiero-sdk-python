@@ -47,9 +47,8 @@ jobs:
 
       - name: Install uv
         uses: astral-sh/setup-uv@803947b9bd8e9f986429fa0c5a41c367cd732b41 # v7.2.1
-
-      - name: Install setuptools wheel
-        run: pip install --upgrade pip setuptools wheel
+        with:
+          enable-cache: true
 
       - name: Install dependencies
         run: uv sync --all-extras --dev
@@ -78,7 +77,14 @@ jobs:
         run: |
           set -o pipefail
           echo "🚀 Running integration tests for shard ${SHARD_INDEX}/${SHARD_TOTAL}..."
-          mapfile -t integration_tests < <(find tests/integration -maxdepth 1 -type f -name "*_test.py" | sort)
+          mapfile -t integration_tests < <(find tests/integration -type f \( -name "test_*.py" -o -name "*_test.py" \) | sort)
+
+          if [ ${#integration_tests[@]} -eq 0 ]; then
+            echo "❌ No integration tests found under tests/integration"
+            echo "exit_code=1" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
           shard_tests=()
           for i in "${!integration_tests[@]}"; do
             if (( i % SHARD_TOTAL == SHARD_INDEX )); then
@@ -87,8 +93,8 @@ jobs:
           done
 
           if [ ${#shard_tests[@]} -eq 0 ]; then
-            echo "❌ No integration tests selected for shard ${SHARD_INDEX}/${SHARD_TOTAL}"
-            echo "exit_code=1" >> $GITHUB_OUTPUT
+            echo "ℹ️ No integration tests assigned to shard ${SHARD_INDEX}/${SHARD_TOTAL}; skipping."
+            echo "exit_code=0" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
@@ -138,9 +144,8 @@ jobs:
 
       - name: Install uv
         uses: astral-sh/setup-uv@803947b9bd8e9f986429fa0c5a41c367cd732b41 # v7.2.1
-
-      - name: Install setuptools wheel
-        run: pip install --upgrade pip setuptools wheel
+        with:
+          enable-cache: true
 
       - name: Install dependencies
         run: uv sync --all-extras --dev
