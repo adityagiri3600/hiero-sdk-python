@@ -8,6 +8,7 @@ This changelog is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.
 
 ### Added
 
+- Added unit test and __repr__ for NftId class(#1627).
 - Added CodeRabbit review instructions for the nodes module in `.coderabbit.yaml` (#1699)
 - Added CodeRabbit review instructions for the transaction module in `.coderabbit.yaml` (#1696)
 - Added CodeRabbit review instructions and path mapping for the schedule module (`src/hiero_sdk_python/schedule/`) in `.coderabbit.yaml` (#1698)
@@ -22,6 +23,7 @@ This changelog is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.
 ### Src
 - Fix `TopicInfo.__str__()` to format `expiration_time` in UTC so unit tests pass in non-UTC environments. (#1800)
 - Resolve CodeQL `reflected-XSS` warning in TCK JSON-RPC endpoint
+- Improve `keccak256` docstring formatting for better readability and consistency (#1624)
 
 ### Examples
 - Refactor `examples/file/file_create_transaction.py` to remove `os`,`dotenv`,`AccountId`,`PrivateKey`,`Network` imports that are no longer needed and updated setup-client() (#1610)
@@ -38,6 +40,7 @@ This changelog is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.
 - docs: create workflow best practices guide (`docs/workflows/03-workflow-best-practices.md`) (`#1743`)
 - Fixed broken `MAINTAINERS.md` relative link in `docs/sdk_developers/bug.md` by using the repository-root GitHub URL. (#1666)
 - docs(setup): specify unit tests for local setup verification. (#1856)
+- docs: Clarify issues need to be assigned in template files. (#1884)
 - doc: Fix testnet link in README.md. (#1879)
 
 
@@ -60,6 +63,11 @@ This changelog is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.
 - Updated CodeRabbit workflow and script review instructions to nudge higher-quality patterns without imposing rigid rules (`#1799`)
 - Added hiero-sdk-js to the next issue recommendation bot (`#1847`)
 - feat(bot): warn PR authors that unlinked PRs will be closed (#1886)
+- updated spam list users (`#1894`)
+- trigger spam list updates every hour (`#1864`)
+- close unlinked pull requests after 12 hours rather than 3 days (`#1863`)
+- feat(bot): enforce linked issue assignment check for PR authors (`#1889`)
+- Bumped `astral-sh/setup-uv` from v7.2.1 to v7.3.1 in workflow files (#1900)
 
 ## [0.2.0] - 2026-11-02
 
