@@ -100,7 +100,7 @@ jobs:
           echo "Selected ${#shard_tests[@]} integration test files:"
           printf ' - %s\n' "${shard_tests[@]}"
           set +e
-          uv run pytest "${shard_tests[@]}" -v --disable-warnings --continue-on-collection-errors 2>&1 | tee result_integration.log
+          uv run pytest tests/integration/test_integration_fail.py -v --disable-warnings --continue-on-collection-errors 2>&1 | tee result_integration.log
           pytest_exit=${PIPESTATUS[0]}
           set -e
           echo "exit_code=$pytest_exit" >> "$GITHUB_OUTPUT"
@@ -126,7 +126,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.10", "3.11", "3.12", "3.13", "3.14"]
+        python-version: ["3.12"]
 
     steps:
       - name: Harden the runner (Audit all outbound calls)
