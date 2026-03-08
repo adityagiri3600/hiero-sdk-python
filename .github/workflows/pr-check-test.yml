@@ -148,7 +148,7 @@ jobs:
           set -o pipefail
           echo "🚀 Running integration tests..."
           set +e
-          uv run pytest tests/integration -v --disable-warnings --continue-on-collection-errors 2>&1 | tee result_integration.log
+          uv run --with pytest-xdist pytest -n 2 --dist=loadfile tests/integration -v --disable-warnings --continue-on-collection-errors 2>&1 | tee result_integration.log
           pytest_exit=${PIPESTATUS[0]}
           set -e
           echo "exit_code=$pytest_exit" >> "$GITHUB_OUTPUT"
